@@ -1,0 +1,46 @@
+import json
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+carros = []
+
+@app.route('/')
+def Hola_a_todos():
+    return 'Hola a todos'
+
+@app.route('/carros')
+def Bienvenido_a_la_API_de_carros():
+    
+@app.route('/carros', methods=['GET','POST'])
+def Hola_usuario():
+    
+    nombre_archivo= "log.txt"
+
+    name= request.headers.get("Hola Usuario")
+    method = request.method
+
+    if method == "GET":
+        Carros = []
+        with open(nombre_archivo, 'r') as archivo:
+            for linea in archivo:
+                carros.append({"Marca" : linea})
+        
+        return jsonify(Carros)
+    
+    elif method == "POST":
+
+        data = request.get_json()
+
+        nombre_archivo = "log.txt"
+        with open(nombre_archivo, 'r') as archivo:
+           
+           archivo.write(data.get("Marca")+ '\n')
+
+           return f'El carro fue agregado'
+
+if __name__ == '__main__':
+    app.run()
+
+    
+
